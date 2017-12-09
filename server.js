@@ -129,17 +129,16 @@ app.get('/transfer',
     });
 
 app.post('/transfer', function (req, res) {
-    console.log(req.user);
     // console.log(req.body._csrf);
     // var csrft = req.body._csrf;
     var bodyStr = '';
     req.on("data", function (chunk) {
         bodyStr += chunk.toString();
-        console.log(bodyStr);
-        var splited = bodyStr.split("&");
-        var csrft = splited[0].split("=")[1]
-        if (req.user.csrfSecret === csrft)
-            console.log(data.toString());
+        var csrft = bodyStr.split("\r\n")[0].split("=")[1]
+         if (req.user.csrfSecret === csrft) {
+             console.log(chunk.toString().split("\r\n")[1]);
+             console.log(chunk.toString().split("\r\n")[2]);
+         }
     });
 });
 
